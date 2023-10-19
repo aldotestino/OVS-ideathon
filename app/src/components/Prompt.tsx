@@ -4,15 +4,38 @@ import { PromptSchema, promptSchema } from '../utils/validators';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
+import PromptApi from '../api/promptApi';
+import { useMutation } from 'react-query';
+import { ChatMessage } from '../utils/types';
 
-function Prompt() {
+interface PromptProps {
+  appendMessage: (message: ChatMessage) => void;
+}
+
+function Prompt({ appendMessage }: PromptProps) {
 
   const { register, handleSubmit, formState: { touchedFields, errors } } = useForm<PromptSchema>({
     resolver: zodResolver(promptSchema)
   });
 
-  function onSubmit(data: PromptSchema) { 
-    console.log(data); 
+  const promptMutation = useMutation({
+    mutationFn: PromptApi.generateCopy,
+    onSuccess: (data) => {
+      console.log(data);
+      appendMessage({
+        sender: 'bot',
+        text: data.copy
+      });
+    }
+  });
+
+  async function onSubmit(values: PromptSchema) {
+    console.log(values);
+    appendMessage({
+      sender: 'me',
+      text: values.message
+    });
+    await promptMutation.mutateAsync(values);
   }
 
   return (
