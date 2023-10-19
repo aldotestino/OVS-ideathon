@@ -1,35 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Box, VStack } from '@chakra-ui/react';
+import Prompt from './components/Prompt';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Box h="100vh" p={4}>
+      <VStack w="full" maxW="container.md" h="full" mx="auto" spacing={4}>
+        <VStack rounded="lg" shadow="sm" w="full" flex="1 auto" border="1px" borderColor="gray.200">
+
+        </VStack>
+        <Prompt />
+      </VStack>
+    </Box>
+  );
 }
 
-export default App
+export default App;
