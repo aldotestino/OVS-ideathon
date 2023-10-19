@@ -12,9 +12,9 @@ interface PromptProps {
   appendMessage: (message: ChatMessage) => void;
 }
 
-function Prompt({ appendMessage }: PromptProps) {
+function PromptBox({ appendMessage }: PromptProps) {
 
-  const { register, handleSubmit, formState: { touchedFields, errors } } = useForm<PromptSchema>({
+  const { register, handleSubmit, formState: { touchedFields, errors }, reset } = useForm<PromptSchema>({
     resolver: zodResolver(promptSchema)
   });
 
@@ -36,6 +36,7 @@ function Prompt({ appendMessage }: PromptProps) {
       text: values.message
     });
     await promptMutation.mutateAsync(values);
+    reset();
   }
 
   return (
@@ -54,4 +55,4 @@ function Prompt({ appendMessage }: PromptProps) {
   );
 }
 
-export default Prompt;
+export default PromptBox;

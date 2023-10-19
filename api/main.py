@@ -27,7 +27,6 @@ class Prompt(BaseModel):
 def generate_copy(prompt: Prompt):
     if len(prompt.message) < 10:
         raise HTTPException(status_code=400, detail="Message too short")
-    prompt.message += " di massimo 250 caratteri"
     copy = model.predict(prompt.message)
     return {"copy": copy}
 
